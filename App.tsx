@@ -6,7 +6,8 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
+import { FAB, Icon } from '@rneui/themed';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,7 +30,7 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -72,6 +73,9 @@ function App(): React.JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Icon
+          name='g-translate'
+          color='#00aced' />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
@@ -92,6 +96,14 @@ function App(): React.JSX.Element {
           <LearnMoreLinks />
         </View>
       </ScrollView>
+      <FAB
+        placement={'left'}
+      // onPress={() => navigation.navigate('FabScreens', { screen: 'Focus' })}
+      >
+        <Icon
+          name='g-translate'
+          color='#00aced' />
+      </FAB>
     </SafeAreaView>
   );
 }
