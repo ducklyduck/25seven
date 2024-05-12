@@ -57,6 +57,9 @@ const TaskItem = ({
     console.log(id)
     changeCompletion(id)
   }
+  const removeTask = useTaskListStore((state) =>
+    state.removeTask
+  )
 
   let checkboxColor = 'black'
   switch (taskPriority) {
@@ -86,7 +89,7 @@ const TaskItem = ({
       rightContent={(reset) => (
         <Button
           title="Delete"
-          onPress={() => reset()}
+          onPress={() => {reset(); removeTask(id)}}
           icon={{ name: 'delete', color: 'white' }}
           buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
         />

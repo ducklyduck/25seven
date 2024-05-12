@@ -110,7 +110,7 @@ export const useTaskListStore = create((set) => ({
       taskList: [
         ...state.taskList,
         {
-          id: useId,
+          id: Date.now(),
           taskTitle: taskTitle,
           isCompleted: false,
           taskDate: taskDate,
