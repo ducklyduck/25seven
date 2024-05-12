@@ -1,24 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 import { FAB, Icon } from '@rneui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
+// Tabs component
+import Tabs from './src/components/Tabs'
 
 import {
   Colors,
@@ -27,6 +15,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function HomeScreen() {
   return (
@@ -34,7 +23,8 @@ function HomeScreen() {
       <Text>Home Screen</Text>
       <FAB
         placement={'left'}
-      // onPress={() => navigation.navigate('FabScreens', { screen: 'Focus' })}
+        // onPress={() => navigation.navigate('FabScreens', { screen: 'Focus' })}
+        onPress={() => console.log('navigation is working')}
       >
         <Icon
           name='g-translate'
@@ -48,11 +38,17 @@ const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
+      <SafeAreaProvider>
+        {/* <NavigationContainer>
+        <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer> */}
+        <Tabs />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
