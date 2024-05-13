@@ -7,7 +7,9 @@ import { useTaskListStore } from '../utils/store'
 
 const styles = StyleSheet.create({
   taskItem: {
-    marginVertical: 10,
+    marginBottom: 10,
+    padding: 10,
+    
   },
   taskRow: {
     flexDirection: "row"
@@ -75,8 +77,8 @@ const TaskItem = ({
   }
 
   return (
-    <ListItem.Swipeable style={styles.taskItem} onPress={() => console.log('task is opened')}
-      leftStyle={{ paddingVertical: 10 }}
+    <ListItem.Swipeable containerStyle={[styles.taskItem, {backgroundColor : isCompleted ? 'lightgrey' : 'white'}]} onPress={() => console.log('task is opened')}
+      leftStyle={{ marginBottom: 10}}
       leftContent={(reset) => (
         <Button
           title="Info"
@@ -85,22 +87,18 @@ const TaskItem = ({
           buttonStyle={{ minHeight: '100%' }}
         />
       )}
-      rightStyle={{ paddingRight: 25, paddingVertical: 10 }}
+      rightStyle={{ marginBottom: 10 }}
       rightContent={(reset) => (
         <Button
           title="Delete"
-          onPress={() => {reset(); removeTask(id)}}
+          onPress={() => { reset(); removeTask(id) }}
           icon={{ name: 'delete', color: 'white' }}
           buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
         />
       )}
     >
-      <ListItem.Content>
-
-        <View style={[styles.taskRow, styles.taskTopRow]} >
-          <Text>{taskProject}</Text>
-          <Text>{taskDate}</Text>
-        </View>
+      <ListItem.Content >
+        <Text style={[styles.taskRow, styles.taskTopRow]} >{taskProject} {taskDate}</Text>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon
             name={isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline'}
@@ -117,7 +115,7 @@ const TaskItem = ({
           <Text>{taskTags}</Text>
         </View>
       </ListItem.Content>
-    </ListItem.Swipeable>
+    </ListItem.Swipeable >
   )
 }
 
