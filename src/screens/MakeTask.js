@@ -33,26 +33,15 @@ const MakeTask = ({ navigation }) => {
   const [open, setOpen] = React.useState(false)
   const addTask = useTaskListStore((state) => state.addTask)
   const saveNewTask = () => {
-    // setTaskList((prevlist) => {
-    //   return [
-    //     ...prevlist,
-    //     {
-    //       taskTitle: taskTitle,
-    //       taskDate: taskDate,
-    //       isCompleted: false
-    //     }
-    //   ]
-    // })
     console.log(taskTitle)
     addTask(taskTitle)
     navigation.goBack()
   }
-  // const handleDelete = (index) => {
-  //   setTaskList((prevList) => {
-  //     const temp = prevList.filter((_, itemI) => itemI !== index)
-  //     return temp
-  //   })
-  // }
+
+  //TODO: change screen to overlay 
+
+  //TODO: make a toast for a task creation cancellation
+  //TODO: make a toast warning when trying to add a task without title
 
   return (
     <View style={styles.container}>
