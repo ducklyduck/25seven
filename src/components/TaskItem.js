@@ -134,8 +134,8 @@ const TaskItem = ({
         </View>
         <View style={[styles.taskRow, styles.taskBottomRow]}>
           {/* TODO: every tag contains an exclusive icon */}
-          {taskTags.map(taskTag => (
-            <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{taskTag}</Text>
+          {taskTags.map((taskTag, taskTagI) => (
+            <Text key={taskTagI} style={{marginRight: 10, textTransform: 'capitalize'}}>{taskTag}</Text>
           ))}
           <Text> </Text>
         </View>
