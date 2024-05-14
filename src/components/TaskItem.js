@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 // Component libraries
-import { View, Text, StyleSheet } from 'react-native'
-import { Button, Icon, ListItem } from '@rneui/themed';
+import {View, StyleSheet} from 'react-native';
+import {Button, Icon, Text, ListItem} from '@rneui/themed';
 // Task store
-import { useTaskListStore } from '../utils/store'
+import {useTaskListStore} from '../utils/store';
 
 const styles = StyleSheet.create({
   taskItem: {
@@ -11,22 +11,17 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   taskRow: {
-    flexDirection: "row"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   taskTopRow: {
-    justifyContent: "space-around",
-
+    width: 340,
   },
-  taskMiddleRow: {
-    justifyContent: "space-between",
-
-  },
-  taskBottomRow: {
-
-  },
+  taskMiddleRow: {},
+  taskBottomRow: {},
   statusIcon: {
     marginLeft: 10,
-    marginRight: 20
+    marginRight: 20,
   },
   taskTitle: {
     fontSize: 22,
@@ -37,9 +32,9 @@ const styles = StyleSheet.create({
   taskDate: {
     color: '#123FED',
     fontSize: 15,
-    marginRight: 5
-  }
-})
+    marginRight: 5,
+  },
+});
 
 const TaskItem = ({
   id,
@@ -48,73 +43,105 @@ const TaskItem = ({
   taskDate,
   taskProject,
   taskPriority,
-  taskTags
+  taskTags,
 }) => {
-  const changeCompletion = useTaskListStore((state) =>
-    state.changeCompletion
-  )
+  const changeCompletion = useTaskListStore(state => state.changeCompletion);
   const toggleTaskStatus = () => {
-    console.log(id)
-    changeCompletion(id)
-  }
-  const removeTask = useTaskListStore((state) =>
-    state.removeTask
-  )
+    console.log(id);
+    changeCompletion(id);
+  };
+  const removeTask = useTaskListStore(state => state.removeTask);
 
-  let checkboxColor = 'black'
+  let checkboxColor = 'black';
   switch (taskPriority) {
     case 3:
-      checkboxColor = 'red'
-      break
+      checkboxColor = 'red';
+      break;
     case 2:
-      checkboxColor = 'orange'
-      break
+      checkboxColor = 'orange';
+      break;
     case 1:
-      checkboxColor = 'blue'
-      break
+      checkboxColor = 'blue';
+      break;
+  }
+  let projectTextColor = 'black';
+  switch (taskProject) {
+    case 'Math':
+      projectTextColor = 'green';
+      break;
+    case 'Daily':
+      projectTextColor = 'tomato';
+      break;
+    case 'Physics':
+      projectTextColor = 'lightblue';
+      break;
   }
 
   return (
-    <ListItem.Swipeable containerStyle={[styles.taskItem, { backgroundColor: isCompleted ? 'lightgrey' : 'white' }]} onPress={() => console.log(`task ${id} is opened`)}
-      leftStyle={{ marginBottom: 10 }}
-      leftContent={(reset) => (
+    <ListItem.Swipeable
+      containerStyle={[
+        styles.taskItem,
+        {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
+      ]}
+      onPress={() => console.log(`task ${id} is opened`)}
+      leftStyle={{marginBottom: 10}}
+      leftContent={reset => (
         <Button
           title="Info"
           onPress={() => reset()}
-          icon={{ name: 'info', color: 'white' }}
-          buttonStyle={{ minHeight: '100%' }}
+          icon={{name: 'info', color: 'white'}}
+          buttonStyle={{minHeight: '100%'}}
         />
       )}
-      rightStyle={{ marginBottom: 10 }}
-      rightContent={(reset) => (
+      rightStyle={{marginBottom: 10}}
+      rightContent={reset => (
         <Button
           title="Delete"
-          onPress={() => { reset(); removeTask(id) }}
-          icon={{ name: 'delete', color: 'white' }}
-          buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+          onPress={() => {
+            reset();
+            removeTask(id);
+          }}
+          icon={{name: 'delete', color: 'white'}}
+          buttonStyle={{minHeight: '100%', backgroundColor: 'red'}}
         />
-      )}
-    >
-      <ListItem.Content >
-        <Text style={[styles.taskRow, styles.taskTopRow]} >{taskProject} {taskDate}</Text>
+      )}>
+      <ListItem.Content>
+        <View style={[styles.taskRow, styles.taskTopRow]}>
+          <Text style={{color: projectTextColor}}>{taskProject} </Text>
+          <Text style={{color: 'coral'}}>{taskDate}</Text>
+        </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon
-            name={isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline'}
-            type='material-community'
+            name={
+              isCompleted
+                ? 'check-circle-outline'
+                : 'checkbox-blank-circle-outline'
+            }
+            type="material-community"
             style={styles.statusIcon}
             size={30}
             onPress={toggleTaskStatus}
             borderRadius={0}
             color={checkboxColor}
           />
-          <Text style={[styles.taskTitle, { textDecorationLine: isCompleted ? "line-through" : "none" }]}>{taskTitle}</Text>
+          <Text
+            style={[
+              styles.taskTitle,
+              {textDecorationLine: isCompleted ? 'line-through' : 'none'},
+            ]}>
+            {taskTitle}
+          </Text>
         </View>
         <View style={[styles.taskRow, styles.taskBottomRow]}>
-          <Text>{taskTags}</Text>
+          {/* TODO: every tag contains an exclusive icon */}
+          {taskTags.map(taskTag => (
+            <Text style={{marginRight: 10, textTransform: 'capitalize'}}>{taskTag}</Text>
+          ))}
+          <Text> </Text>
         </View>
       </ListItem.Content>
-    </ListItem.Swipeable >
-  )
-}
+    </ListItem.Swipeable>
+  );
+};
 
-export default TaskItem
+export default TaskItem;
