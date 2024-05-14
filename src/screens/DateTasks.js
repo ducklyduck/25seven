@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {FAB, Icon} from '@rneui/themed';
+import {FAB} from '@rneui/themed';
 // Task store
 import {useTaskListStore} from '../utils/store';
 // Task component
@@ -60,32 +60,26 @@ const DateTasks = ({navigation}) => {
       </ScrollView>
       <FAB
         placement={'right'}
-        backgroundColor="tomato"
-        onPress={() => navigation.navigate('FabScreens', { screen: 'Task' })}
-      >
-        <Icon
-          name="plus"
-          type="material-community"
-          width={20}
-          size={24}
-          color="white"
-        />
-      </FAB>
+        color="tomato"
+          icon={{
+            name: "plus",
+            type: "material-community",
+            size: 24,
+            color: "white"
+          }}
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})} />
       <FAB
         placement={'left'}
-        backgroundColor="tomato"
-        onPress={() => navigation.navigate('FabScreens', { screen: 'Focus' })}
-      >
-        <Icon
-          name="lightbulb-outline"
-          type="material-community"
-          width={20}
-          size={24}
-          color="white"
-        />
-      </FAB>
+        color="tomato"
+        icon={{
+          name: "lightbulb-outline",
+          type: "material-community",
+          size: 24,
+          color: "white"
+        }}
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})} />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default DateTasks
+export default DateTasks;

@@ -8,18 +8,21 @@ import {
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {FAB, Icon} from '@rneui/themed';
+import {FAB} from '@rneui/themed';
 // Task store
 import {useTaskListStore} from '../utils/store';
 // Task component
 import TaskItem from '../components/TaskItem';
 
+// TODO: import styles from a special style file
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   taskList: {
     flexDirection: 'column',
+    marginBottom: 100,
+    padding: 10,
   },
   screenTitle: {
     fontSize: 40,
@@ -56,30 +59,26 @@ const ProjectTasks = ({navigation}) => {
       </ScrollView>
       <FAB
         placement={'right'}
-        backgroundColor="tomato"
-        onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})}>
-        <Icon
-          name="plus"
-          type="material-community"
-          width={20}
-          size={24}
-          color="white"
-          backgroundColor="tomato"
-        />
-      </FAB>
+        color="tomato"
+        icon={{
+          name: 'plus',
+          type: 'material-community',
+          size: 24,
+          color: 'white',
+        }}
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})}
+      />
       <FAB
         placement={'left'}
-        backgroundColor="tomato"
-        onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})}>
-        <Icon
-          name="lightbulb-outline"
-          type="material-community"
-          width={20}
-          size={24}
-          color="white"
-          backgroundColor="tomato"
-        />
-      </FAB>
+        color="tomato"
+        icon={{
+          name: 'lightbulb-outline',
+          type: 'material-community',
+          size: 24,
+          color: 'white',
+        }}
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})}
+      />
     </SafeAreaView>
   );
 };
