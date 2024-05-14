@@ -5,39 +5,47 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTaskListStore} from '../utils/store';
 import {Button, Icon} from '@rneui/themed';
 // Task component
-import TaskItem from '../components/TaskItem'
+import FocusTaskItem from '../components/FocusTaskItem';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 0,
+    justifyContent: 'center',
+  },
+  textContainer: {
     alignItems: 'center',
-    marginTop: 100
-    // justifyContent: 'center'
   },
   timer: {
     fontSize: 100,
     fontWeight: 'bold',
-    marginBottom: 20
+    marginBottom: 20,
   },
   tasksWrapper: {
     flexDirection: 'column',
-    marginVertical: 30
-  }
-})
+    marginVertical: 30,
+    padding: 10,
+  },
+});
 
-const FocusMode = ({ navigation }) => {
-  const timer = '57:00'
-  const list = useTaskListStore((state) => state.taskList)
+const FocusMode = ({navigation}) => {
+  const timer = '57:00';
+  const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.timer}>{timer}</Text>
-      <Text style={{ fontWeight: '600', fontSize: 28 }}>Your tasks</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.timer}>{timer}</Text>
+        <Text style={{fontWeight: '600', fontSize: 28}}>Your tasks</Text>
+      </View>
       <View style={styles.tasksWrapper}>
         {list
-          .filter((task) => task.taskDate === 'Today')
-          .map((task, taskI) => (
-            <TaskItem
-              key={taskI}
+          .filter(
+            task => task.taskDate === 'Today' && task.isCompleted === false,
+          )
+          .map(task => (
+            <FocusTaskItem
+              key={task.id}
+              id={task.id}
               taskTitle={task.taskTitle}
               isCompleted={task.isCompleted}
               taskDate={task.taskDate}
@@ -47,25 +55,25 @@ const FocusMode = ({ navigation }) => {
             />
           ))}
       </View>
-      {/* <Button
-        backgroundColor="indianred"
-        size={36}
-        borderRadius={40}
-        style={{ marginHorizontal: 7, marginLeft: 15 }}
-        onPress={() => {
-          console.log('concentration stopped')
-          navigation.goBack()
-        }}
-      >
-        <Icon
-          name={'pause'}
-          type='material-community'
-          size={25}
-          color={'grey'}
-        />
-      </Button> */}
+      <View style={styles.textContainer}>
+        <Button
+          color="indianred"
+          size="lg"
+          radius={45}
+          onPress={() => {
+            console.log('concentration stopped');
+            navigation.goBack();
+          }}>
+          <Icon
+            name={'pause'}
+            type="material-community"
+            size={48}
+            color={'white'}
+          />
+        </Button>
+      </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default FocusMode
+export default FocusMode;
