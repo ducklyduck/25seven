@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 // Import from component libraries
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useTaskListStore } from '../utils/store'
-import { Button, Icon } from '@rneui/themed'
+import {View, Text, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTaskListStore} from '../utils/store';
+import {Button, Icon} from '@rneui/themed';
 // Task component
 import TaskItem from '../components/TaskItem'
 

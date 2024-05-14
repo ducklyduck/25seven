@@ -1,20 +1,26 @@
-import React from 'react'
+import React from 'react';
 // import from component libraries
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { FAB, Icon } from '@rneui/themed'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FAB, Icon} from '@rneui/themed';
 // Task store
-import { useTaskListStore } from '../utils/store'
+import {useTaskListStore} from '../utils/store';
 // Task component
-import TaskItem from '../components/TaskItem'
+import TaskItem from '../components/TaskItem';
 
 // TODO: import styles from a special style file
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   taskList: {
-    flexDirection: "column",
+    flexDirection: 'column',
     marginBottom: 100,
     padding: 10,
   },
@@ -22,13 +28,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: 'crimson',
-    paddingLeft: 20
-  }
-})
+    paddingLeft: 20,
+  },
+});
 
-const DateTasks = ({ navigation }) => {
-  const date = 'Today'
-  const list = useTaskListStore((state) => state.taskList)
+const DateTasks = ({navigation}) => {
+  const date = 'Today';
+  const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -37,8 +43,8 @@ const DateTasks = ({ navigation }) => {
       <ScrollView>
         <View style={styles.taskList}>
           {list
-            .filter((task) => task.taskDate === date)
-            .map((task) => (
+            .filter(task => task.taskDate === date)
+            .map(task => (
               <TaskItem
                 key={task.id}
                 id={task.id}
@@ -51,7 +57,6 @@ const DateTasks = ({ navigation }) => {
               />
             ))}
         </View>
-
       </ScrollView>
       <FAB
         placement={'right'}

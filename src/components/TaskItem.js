@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   taskItem: {
     marginBottom: 10,
     padding: 10,
-    
   },
   taskRow: {
     flexDirection: "row"
@@ -51,7 +50,6 @@ const TaskItem = ({
   taskPriority,
   taskTags
 }) => {
-  // TODO: make checkbox change completion's state
   const changeCompletion = useTaskListStore((state) =>
     state.changeCompletion
   )
@@ -77,8 +75,8 @@ const TaskItem = ({
   }
 
   return (
-    <ListItem.Swipeable containerStyle={[styles.taskItem, {backgroundColor : isCompleted ? 'lightgrey' : 'white'}]} onPress={() => console.log('task is opened')}
-      leftStyle={{ marginBottom: 10}}
+    <ListItem.Swipeable containerStyle={[styles.taskItem, { backgroundColor: isCompleted ? 'lightgrey' : 'white' }]} onPress={() => console.log(`task ${id} is opened`)}
+      leftStyle={{ marginBottom: 10 }}
       leftContent={(reset) => (
         <Button
           title="Info"
