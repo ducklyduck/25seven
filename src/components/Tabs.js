@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 // All the Screens
-import ProjectTasks from '../screens/ProjectTasks'
-import DateTasks from '../screens/DateTasks'
-import FocusMode from '../screens/FocusMode'
-import MakeTask from '../screens/MakeTask'
+import ProjectTasks from '../screens/ProjectTasks';
+import DateTasks from '../screens/DateTasks';
+import FocusMode from '../screens/FocusMode';
+import MakeTask from '../screens/MakeTask';
 // Components
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationContainer } from '@react-navigation/native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { Icon } from '@rneui/themed';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {Icon} from '@rneui/themed';
 
-const Drawer = createDrawerNavigator()
-const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 const TaskFilterScreens = () => {
   return (
@@ -21,14 +21,14 @@ const TaskFilterScreens = () => {
         component={DateTasks}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Icon
               name={'calendar'}
-              type='material-community'
+              type="material-community"
               size={25}
               color={focused ? 'crimson' : 'black'}
             />
-          )
+          ),
         }}
       />
       <Drawer.Screen
@@ -36,19 +36,19 @@ const TaskFilterScreens = () => {
         component={ProjectTasks}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Icon
               name={'bookmark'}
-              type='material-community'
+              type="material-community"
               size={25}
               color={focused ? 'crimson' : 'black'}
             />
-          )
+          ),
         }}
       />
     </Drawer.Navigator>
-  )
-}
+  );
+};
 
 const FabScreens = () => {
   return (
@@ -57,19 +57,19 @@ const FabScreens = () => {
         name={'Task'}
         component={MakeTask}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name={'Focus'}
         component={FocusMode}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const Tabs = () => {
   return (
@@ -78,16 +78,16 @@ const Tabs = () => {
         <Stack.Screen
           name="TaskScreens"
           component={TaskFilterScreens}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="FabScreens"
           component={FabScreens}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default Tabs
+export default Tabs;
