@@ -73,7 +73,10 @@ const TaskItem = ({
       projectTextColor = 'tomato';
       break;
     case 'Physics':
-      projectTextColor = 'lightblue';
+      projectTextColor = 'indigo';
+      break;
+    case 'Programming':
+      projectTextColor = 'blue';
       break;
   }
 
@@ -135,7 +138,11 @@ const TaskItem = ({
         <View style={[styles.taskRow, styles.taskBottomRow]}>
           {/* TODO: every tag contains an exclusive icon */}
           {taskTags.map((taskTag, taskTagI) => (
-            <Text key={taskTagI} style={{marginRight: 10, textTransform: 'capitalize'}}>{taskTag}</Text>
+            <Text
+              key={taskTagI}
+              style={{marginRight: 10, textTransform: 'capitalize'}}>
+              {taskTag}
+            </Text>
           ))}
           <Text> </Text>
         </View>

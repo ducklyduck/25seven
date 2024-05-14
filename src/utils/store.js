@@ -10,7 +10,7 @@ const taskListStore = (set) => ({
       taskTitle: 'Code',
       isCompleted: false,
       taskDate: 'Today',
-      taskProject: '',
+      taskProject: 'Programming',
       taskPriority: 3,
       taskTags: []
     },
@@ -30,7 +30,7 @@ const taskListStore = (set) => ({
       taskDate: 'Today',
       taskProject: 'Daily',
       taskPriority: 1,
-      taskTags: []
+      taskTags: ['dog']
     },
     {
       id: 4,
@@ -82,7 +82,7 @@ const taskListStore = (set) => ({
       taskTitle: 'Fix the project',
       isCompleted: false,
       taskDate: 'Today',
-      taskProject: 'Math',
+      taskProject: 'Physics',
       taskPriority: 3,
       taskTags: ['studies']
     },
@@ -95,18 +95,9 @@ const taskListStore = (set) => ({
       taskPriority: 0,
       taskTags: ['']
     },
-    {
-      id: 11,
-      taskTitle: 'Morning exercises',
-      isCompleted: true,
-      taskDate: 'Today',
-      taskProject: 'Daily',
-      taskPriority: 0,
-      taskTags: ['']
-    },
   ],
-  projectList: ['Daily', 'Math', 'Physics'],
-  tagsList: ['homework', 'studies'],
+  projectList: ['Daily', 'Math', 'Physics', 'Programming'],
+  tagsList: ['homework', 'studies', 'dog'],
   addTask: (taskTitle, taskDate, taskProject, taskPriority, taskTags) =>
     set((state) => ({
       taskList: [
@@ -152,8 +143,8 @@ const taskListStore = (set) => ({
 export const useTaskListStore = create(
   devtools(
     persist(taskListStore, {
-      name: 'taskList',
-      storage: createJSONStorage(() => localStorage),
+      name: 'task-list',
+      storage: createJSONStorage(() => AsyncStorage),
     })
   )
 )
