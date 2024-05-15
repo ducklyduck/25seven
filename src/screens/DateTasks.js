@@ -19,16 +19,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  taskList: {
-    flexDirection: 'column',
-    marginBottom: 100,
-    padding: 10,
-  },
   screenTitle: {
     fontSize: 40,
     fontWeight: 'bold',
     color: 'crimson',
     paddingLeft: 20,
+  },
+  taskList: {
+    flexDirection: 'column',
+    marginBottom: 100,
+    padding: 10,
   },
 });
 
@@ -61,23 +61,25 @@ const DateTasks = ({navigation}) => {
       <FAB
         placement={'right'}
         color="tomato"
-          icon={{
-            name: "plus",
-            type: "material-community",
-            size: 24,
-            color: "white"
-          }}
-        onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})} />
+        icon={{
+          name: 'plus',
+          type: 'material-community',
+          size: 24,
+          color: 'white',
+        }}
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})}
+      />
       <FAB
         placement={'left'}
         color="tomato"
         icon={{
-          name: "lightbulb-outline",
-          type: "material-community",
+          name: 'lightbulb-outline',
+          type: 'material-community',
           size: 24,
-          color: "white"
+          color: 'white',
         }}
-        onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})} />
+        onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})}
+      />
     </SafeAreaView>
   );
 };
