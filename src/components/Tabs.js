@@ -2,6 +2,7 @@ import React from 'react';
 // All the Screens
 import ProjectTasks from '../screens/ProjectTasks';
 import DateTasks from '../screens/DateTasks';
+import Statistics from '../screens/Statistics';
 import FocusMode from '../screens/FocusMode';
 import MakeTask from '../screens/MakeTask';
 // Components
@@ -39,6 +40,21 @@ const TaskFilterScreens = () => {
           tabBarIcon: ({focused}) => (
             <Icon
               name={'bookmark'}
+              type="material-community"
+              size={25}
+              color={focused ? 'crimson' : 'black'}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={'Stats'}
+        component={Statistics}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name={'chart-bar'}
               type="material-community"
               size={25}
               color={focused ? 'crimson' : 'black'}
