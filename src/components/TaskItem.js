@@ -4,6 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {Button, Icon, Text, ListItem} from '@rneui/themed';
 // Task store
 import {useTaskListStore} from '../utils/store';
+import onDisplayNotification from './NoftificationItem';
 
 const styles = StyleSheet.create({
   taskItem: {
@@ -86,7 +87,7 @@ const TaskItem = ({
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
       ]}
-      onPress={() => console.log(`task ${id} is opened`)}
+      onPress={() => onDisplayNotification()}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
