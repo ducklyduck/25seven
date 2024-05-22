@@ -22,7 +22,7 @@ const TaskFilterScreens = () => {
         component={DateTasks}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused}) => (
+          drawerIcon: ({focused}) => (
             <Icon
               name={'calendar'}
               type="material-community"
@@ -37,7 +37,7 @@ const TaskFilterScreens = () => {
         component={ProjectTasks}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused}) => (
+          drawerIcon: ({focused}) => (
             <Icon
               name={'bookmark'}
               type="material-community"
@@ -52,7 +52,7 @@ const TaskFilterScreens = () => {
         component={Statistics}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused}) => (
+          drawerIcon: ({focused}) => (
             <Icon
               name={'chart-bar'}
               type="material-community"

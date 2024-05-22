@@ -96,8 +96,6 @@ const taskListStore = (set) => ({
       taskTags: ['']
     },
   ],
-  projectList: ['Daily', 'Math', 'Physics', 'Programming'],
-  tagsList: ['homework', 'studies', 'dog'],
   addTask: (taskTitle, taskDate, taskProject, taskPriority, taskTags) =>
     set((state) => ({
       taskList: [
@@ -138,6 +136,8 @@ const taskListStore = (set) => ({
     set((state) => ({
       taskList: state.taskList.filter((task) => task.id !== id),
     })),
+  projectList: ['Daily', 'Math', 'Physics', 'Programming'],
+  tagsList: ['homework', 'studies', 'dog'],
 })
 
 export const useTaskListStore = create(
