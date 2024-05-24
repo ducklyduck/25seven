@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'black',
     fontWeight: '500',
-    // marginRight: 'auto'
   },
   taskDate: {
     color: '#123FED',
@@ -38,9 +37,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const TaskItem = (navigation, {id, taskTitle, isCompleted, taskDate, taskProject, taskPriority, taskTags}) => {
+const TaskItem = ({navigation, ...props}) => {
   const changeCompletion = useTaskListStore(state => state.changeCompletion);
   const removeTask = useTaskListStore(state => state.removeTask);
+  const toggleTaskStatus = () => {
+    console.log(id);
+    changeCompletion(id);
+  };
+
+  const {
+    id,
+    taskTitle,
+    isCompleted,
+    taskDate,
+    taskProject,
+    taskPriority,
+    taskTags,
+  } = props;
 
   let checkboxColor = 'black';
   switch (taskPriority) {
@@ -76,12 +89,15 @@ const TaskItem = (navigation, {id, taskTitle, isCompleted, taskDate, taskProject
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
       ]}
-      onPress={() => navigation.navigate('ChangeTaskScreen')}
+      // onPress={() => navigation.navigate('ChangeTaskScreen')}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
           title="Notify"
-          onPress={() => {reset(); onDisplayNotification()}}
+          onPress={() => {
+            reset();
+            onDisplayNotification();
+          }}
           icon={{name: 'info', color: 'white'}}
           buttonStyle={{minHeight: '100%'}}
         />
@@ -105,11 +121,16 @@ const TaskItem = (navigation, {id, taskTitle, isCompleted, taskDate, taskProject
         </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon
-            name={ isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline' }
+            name={
+              isCompleted
+                ? 'check-circle-outline'
+                : 'checkbox-blank-circle-outline'
+            }
             type="material-community"
             style={styles.statusIcon}
             size={30}
-            onPress={ () => changeCompletion(id)}
+            // onPress={() => changeCompletion(id)}
+            onPress={toggleTaskStatus}
             borderRadius={0}
             color={checkboxColor}
           />
@@ -129,7 +150,6 @@ const TaskItem = (navigation, {id, taskTitle, isCompleted, taskDate, taskProject
               {taskTag}
             </Text>
           ))}
-          <Text> </Text>
         </View>
       </ListItem.Content>
     </ListItem.Swipeable>

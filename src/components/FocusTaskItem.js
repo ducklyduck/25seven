@@ -12,13 +12,12 @@ const styles = StyleSheet.create({
   },
   taskRow: {
     flexDirection: 'row',
-  },
-  taskTopRow: {
-    justifyContent: 'space-around',
-  },
-  taskMiddleRow: {
     justifyContent: 'space-between',
   },
+  taskTopRow: {
+    width: 340,
+  },
+  taskMiddleRow: {},
   taskBottomRow: {},
   statusIcon: {
     marginLeft: 10,
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'black',
     fontWeight: '500',
-    // marginRight: 'auto'
   },
   taskDate: {
     color: '#123FED',
@@ -64,18 +62,32 @@ const FocusTaskItem = ({
       checkboxColor = 'blue';
       break;
   }
+  let projectTextColor = 'black';
+  switch (taskProject) {
+    case 'Math':
+      projectTextColor = 'green';
+      break;
+    case 'Daily':
+      projectTextColor = 'tomato';
+      break;
+    case 'Physics':
+      projectTextColor = 'indigo';
+      break;
+    case 'Programming':
+      projectTextColor = 'blue';
+      break;
+  }
 
   return (
     <ListItem
       containerStyle={[
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
-      ]}
-      onPress={() => console.log(`task ${id} is opened`)}>
+      ]}>
       <ListItem.Content>
-        <Text style={[styles.taskRow, styles.taskTopRow]}>
-          {taskProject}
-        </Text>
+        <View style={[styles.taskRow, styles.taskTopRow]}>
+          <Text style={{color: projectTextColor}}>{taskProject} </Text>
+        </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon
             name={
@@ -99,7 +111,7 @@ const FocusTaskItem = ({
           </Text>
         </View>
         <View style={[styles.taskRow, styles.taskBottomRow]}>
-          <Text>{taskTags}</Text>
+          <Text></Text>
         </View>
       </ListItem.Content>
     </ListItem>

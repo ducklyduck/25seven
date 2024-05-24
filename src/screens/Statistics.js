@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const Statistics = ({navigation}) => {
+  // const dailyData = useTaskListStore(state => state.dailyData);
+  // const projectData = useTaskListStore(state => state.projectData);
   const dailyData = [
     {x: 1, y: 1, label: 'Monday', opacity: 0.5, fill: 'grey'},
     {x: 2, y: 3, label: 'Tuesday', opacity: 0.5, fill: 'grey'},
