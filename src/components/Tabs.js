@@ -5,6 +5,7 @@ import DateTasks from '../screens/DateTasks';
 import Statistics from '../screens/Statistics';
 import FocusMode from '../screens/FocusMode';
 import MakeTask from '../screens/MakeTask';
+import ChangeTask from '../screens/ChangeTask';
 // Components
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -99,6 +100,11 @@ const Tabs = () => {
         <Stack.Screen
           name="FabScreens"
           component={FabScreens}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ChangeTaskScreen"
+          component={ChangeTask}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

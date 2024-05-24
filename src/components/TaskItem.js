@@ -53,6 +53,7 @@ const TaskItem = ({navigation, ...props}) => {
     taskProject,
     taskPriority,
     taskTags,
+    onPress
   } = props;
 
   let checkboxColor = 'black';
@@ -90,6 +91,7 @@ const TaskItem = ({navigation, ...props}) => {
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
       ]}
       // onPress={() => navigation.navigate('ChangeTaskScreen')}
+      onPress={() => onPress(id)}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
@@ -150,6 +152,7 @@ const TaskItem = ({navigation, ...props}) => {
               {taskTag}
             </Text>
           ))}
+          <Text></Text>
         </View>
       </ListItem.Content>
     </ListItem.Swipeable>

@@ -36,9 +36,7 @@ const DateTasks = ({navigation}) => {
   const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <Text style={styles.screenTitle}>{date}</Text>
-      </TouchableOpacity>
+      <Text style={styles.screenTitle} onPress={() => navigation.openDrawer()}>{date}</Text>
       <ScrollView>
         <View style={styles.taskList}>
           {list
@@ -53,6 +51,7 @@ const DateTasks = ({navigation}) => {
                 taskProject={task.taskProject}
                 taskPriority={task.taskPriority}
                 taskTags={task.taskTags}
+                onPress={(id) => navigation.navigate('ChangeTaskScreen', id)}
               />
             ))}
         </View>
