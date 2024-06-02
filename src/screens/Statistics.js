@@ -43,11 +43,11 @@ const Statistics = ({navigation}) => {
         <Text style={styles.screenTitle}>Statistics</Text>
       </TouchableOpacity>
       <View style={styles.dailyStats}>
-        {/* TODO: BarChart of tasks sorted by day completed on a weeek */}
+        {/* BarChart of tasks sorted by day completed on a weeek */}
         <VictoryBar style={{data: {fill: 'coral'}}} data={dailyData} />
       </View>
       <View style={styles.projectStats}>
-        {/* TODO: PieChart of tasks sorted by project completed on a week */}
+        {/* PieChart of tasks sorted by project completed on a week */}
         <VictoryPie
           radius={130}
           colorScale={['coral', 'lightskyblue', 'limegreen', 'mediumpurple']}
