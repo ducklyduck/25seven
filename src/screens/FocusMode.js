@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTaskListStore} from '../utils/store';
 import {Button, Icon} from '@rneui/themed';
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 // Task component
 import FocusTaskItem from '../components/FocusTaskItem';
 
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   timer: {
-    fontSize: 100,
+    fontSize: 60,
     fontWeight: 'bold',
     marginBottom: 20,
   },
@@ -29,13 +30,32 @@ const styles = StyleSheet.create({
 });
 
 const FocusMode = ({navigation}) => {
-  const timer = '57:00';
+  const durationTime = 1600;
+  let workTime = 0;
   const list = useTaskListStore(state => state.taskList);
+
+  const children = ( remainingTime ) => {
+    const minutes = Math.floor(remainingTime / 60) ? Math.floor(remainingTime / 60) : '00';
+    const seconds = remainingTime % 60 ? remainingTime % 60 : '00';
+
+    return `${minutes}:${seconds}`
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.timer}>{timer}</Text>
-        <Text style={{fontWeight: '600', fontSize: 28}}>Your tasks</Text>
+        <CountdownCircleTimer
+          isPlaying
+          size={220}
+          duration={durationTime}
+          colors={['tomato']}>
+          {({remainingTime}) => (
+            <Text style={styles.timer}>{children(remainingTime)}</Text>
+          )}
+          onComplete={({remainingTime}) => {
+            workTime = durationTime - remainingTime
+          }}
+        </CountdownCircleTimer>
       </View>
       <View style={styles.tasksWrapper}>
         {list
@@ -57,19 +77,12 @@ const FocusMode = ({navigation}) => {
       </View>
       <View style={styles.textContainer}>
         <Button
-          color="indianred"
-          size="lg"
-          radius={45}
+          color="tomato" size="lg" radius={45}
           onPress={() => {
-            console.log('concentration stopped');
+            onConcentrationStop(workTime);
             navigation.goBack();
           }}>
-          <Icon
-            name={'pause'}
-            type="material-community"
-            size={48}
-            color={'white'}
-          />
+          <Icon name={'pause'} type="material-community" size={48} color={'white'} />
         </Button>
       </View>
     </SafeAreaView>
