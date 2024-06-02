@@ -3,7 +3,7 @@ import notifee from '@notifee/react-native';
 import {View, Button} from 'react-native';
 
 
-async function onDisplayNotification() {
+async function onDisplayNotification(taskCount) {
   // Request permissions (required for iOS)
   await notifee.requestPermission();
 
@@ -17,7 +17,7 @@ async function onDisplayNotification() {
   // try {
     await notifee.displayNotification({
       title: 'You have work to do',
-      body: 'You have 3 uncompleted tasks',
+      body: `You have ${taskCount} uncompleted tasks. Don't forget it!`,
       android: {
         channelId,
         largeIcon: require('../../assets/noftification-icon.png'), // optional, defaults to 'ic_launcher'.
