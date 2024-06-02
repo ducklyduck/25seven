@@ -84,22 +84,20 @@ const TaskItem = ({navigation, ...props}) => {
       break;
   }
 
+  const taskCount = useTaskListStore(state => state.taskList).filter(task => task.taskDate === 'Today' && task.isCompleted === false,).length;
+
   return (
     <ListItem.Swipeable
       containerStyle={[
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
       ]}
-      // onPress={() => navigation.navigate('ChangeTaskScreen')}
       onPress={() => onPress(id)}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
           title="Notify"
-          onPress={() => {
-            reset();
-            onDisplayNotification();
-          }}
+          onPress={() => { reset(); onDisplayNotification(taskCount) }}
           icon={{name: 'info', color: 'white'}}
           buttonStyle={{minHeight: '100%'}}
         />
@@ -122,25 +120,16 @@ const TaskItem = ({navigation, ...props}) => {
           <Text style={{color: 'coral'}}>{taskDate}</Text>
         </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
-          <Icon
-            name={
-              isCompleted
-                ? 'check-circle-outline'
-                : 'checkbox-blank-circle-outline'
-            }
+          <Icon name={ isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline' }
             type="material-community"
             style={styles.statusIcon}
             size={30}
-            // onPress={() => changeCompletion(id)}
             onPress={toggleTaskStatus}
             borderRadius={0}
             color={checkboxColor}
           />
           <Text
-            style={[
-              styles.taskTitle,
-              {textDecorationLine: isCompleted ? 'line-through' : 'none'},
-            ]}>
+            style={[ styles.taskTitle, {textDecorationLine: isCompleted ? 'line-through' : 'none'}, ]}>
             {taskTitle}
           </Text>
         </View>
