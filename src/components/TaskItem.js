@@ -2,6 +2,7 @@ import React from 'react';
 // Component libraries
 import {View, StyleSheet} from 'react-native';
 import {Button, Icon, Text, ListItem} from '@rneui/themed';
+import moment from 'moment';
 // Task store
 import {useTaskListStore} from '../utils/store';
 // Notifications
@@ -53,7 +54,8 @@ const TaskItem = ({navigation, ...props}) => {
     taskProject,
     taskPriority,
     taskTags,
-    onPress
+    onPress,
+    isOverdue
   } = props;
 
   let checkboxColor = 'black';
@@ -83,21 +85,25 @@ const TaskItem = ({navigation, ...props}) => {
       projectTextColor = 'blue';
       break;
   }
-
-  const taskCount = useTaskListStore(state => state.taskList).filter(task => task.taskDate === 'Today' && task.isCompleted === false,).length;
-
+  const thisDateFormatted = moment().format('DDD')
+  // TODO: Fix taskCount to show true count of  uncompleted tasks of today or earlier
+  const taskCount = useTaskListStore(state => state.taskList).filter(task => (moment(moment(taskDate).format('DDD')).diff(thisDateFormatted, 'years')) <= 0 && task.isCompleted === false).length;
   return (
     <ListItem.Swipeable
       containerStyle={[
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
+        // {backgroundColor: isOverdue ? 'pink' : isCompleted ? 'lightgrey' : 'white'},
       ]}
       onPress={() => onPress(id)}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
           title="Notify"
-          onPress={() => { reset(); onDisplayNotification(taskCount) }}
+          onPress={() => { reset();
+            onDisplayNotification(taskCount)
+            console.log(moment(moment(taskDate).format('DDD')).diff(moment().format('DDD'), 'years'));
+          }}
           icon={{name: 'info', color: 'white'}}
           buttonStyle={{minHeight: '100%'}}
         />
@@ -117,7 +123,7 @@ const TaskItem = ({navigation, ...props}) => {
       <ListItem.Content>
         <View style={[styles.taskRow, styles.taskTopRow]}>
           <Text style={{color: projectTextColor}}>{taskProject} </Text>
-          <Text style={{color: 'coral'}}>{taskDate}</Text>
+          <Text style={{color: isOverdue? 'red' : 'coral'}}>{String(moment(taskDate).calendar())}</Text>
         </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon name={ isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline' }
@@ -129,7 +135,7 @@ const TaskItem = ({navigation, ...props}) => {
             color={checkboxColor}
           />
           <Text
-            style={[ styles.taskTitle, {textDecorationLine: isCompleted ? 'line-through' : 'none'}, ]}>
+            style={[ styles.taskTitle, {textDecorationLine: isCompleted ? 'line-through' : 'none'}, {color: isOverdue ? 'red' : 'black'}]}>
             {taskTitle}
           </Text>
         </View>

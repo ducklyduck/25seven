@@ -2,6 +2,7 @@ import React from 'react';
 // Import from component libraries
 import {Text, StyleSheet, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import {Icon, Button} from '@rneui/themed';
 import {useTaskListStore} from '../utils/store';
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
 
 const MakeTask = ({navigation}) => {
   const [taskTitle, setTaskTitle] = React.useState('');
-  const [taskDate, setTaskDate] = React.useState(new Date());
+  const [taskDate, setTaskDate] = React.useState(moment().toDate());
   const [taskProject, setTaskProject] = React.useState('');
   const [taskPriority, setTaskPriority] = React.useState(0);
   const [taskTags, setTaskTags] = React.useState([]);
@@ -117,7 +118,7 @@ const MakeTask = ({navigation}) => {
   const addTask = useTaskListStore(state => state.addTask);
 
   const onAddTaskClick = () => {
-    addTask(taskTitle, taskDate, taskProject, taskPriority, taskTags);
+    addTask(taskTitle, moment(taskDate).format(), taskProject, taskPriority, taskTags);
     navigation.goBack();
   };
 
@@ -140,6 +141,7 @@ const MakeTask = ({navigation}) => {
           Date
         </Button>
         <DatePicker modal open={open} date={taskDate}
+          //  dividerColor='coral' buttonColor='tomato'
           onConfirm={taskDate => { setOpen(false); setTaskDate(taskDate); }}
           onCancel={() => {
             setOpen(false);
@@ -211,7 +213,7 @@ const MakeTask = ({navigation}) => {
           <SelectDropdown
             data={priorities}
             onSelect={(selectedItem, index) => {
-              setTaskPriority(selectedItem);
+              setTaskPriority(selectedItem.key);
             }}
             // button render
             renderButton={(selectedItem, isOpen) => {

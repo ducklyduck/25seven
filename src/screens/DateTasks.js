@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FAB} from '@rneui/themed';
 // Task store
@@ -29,18 +30,63 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     padding: 10,
   },
+  overdueTaskList: {
+    flexDirection: 'column',
+    marginBottom: 20,
+    padding: 10,
+  }
 });
 
 const DateTasks = ({navigation}) => {
-  const date = 'Today';
+  const thisDate = moment();
+  const thisDateTitle = moment(thisDate).calendar(null,
+    {
+      sameDay: '[Today]',
+      nextDay: '[Tomorrow]',
+      nextWeek: 'dddd',
+      lastDay: '[Yesterday]',
+      lastWeek: '[Last] dddd',
+      sameElse: 'DD/MM/YYYY'
+    })
+
+  const isDateOverdue = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') < 0
+  }
+
+  const isDateFilter = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') == 0
+  }
+
   const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.screenTitle} onPress={() => navigation.openDrawer()}>{date}</Text>
+      <Text style={styles.screenTitle} onPress={() => navigation.openDrawer()}>{thisDateTitle}</Text>
       <ScrollView>
+        <View style={styles.overdueTaskList}>
+          {list
+            .filter(task => isDateOverdue(task.taskDate) && task.isCompleted == false)
+            .map(task => (
+              <TaskItem
+                key={task.id}
+                id={task.id}
+                taskTitle={task.taskTitle}
+                isCompleted={task.isCompleted}
+                taskDate={task.taskDate}
+                taskProject={task.taskProject}
+                taskPriority={task.taskPriority}
+                taskTags={task.taskTags}
+                isOverdue={true}
+                onPress={(id) => navigation.navigate('ChangeTaskScreen', id)}
+              />
+            ))}
+        </View>
         <View style={styles.taskList}>
           {list
-            .filter(task => task.taskDate === date)
+            .filter(task => isDateFilter(task.taskDate))
             .map(task => (
               <TaskItem
                 key={task.id}
