@@ -8,8 +8,8 @@ const taskListStore = (set) => ({
     {
       id: 1,
       taskTitle: 'Code',
-      isCompleted: false,
-      taskDate: 'Today',
+      isCompleted: true,
+      taskDate: '2024-06-09T13:16:00.000Z',
       taskProject: 'Programming',
       taskPriority: 3,
       taskTags: []
@@ -17,8 +17,8 @@ const taskListStore = (set) => ({
     {
       id: 2,
       taskTitle: 'Test preparations',
-      isCompleted: false,
-      taskDate: 'Today',
+      isCompleted: true,
+      taskDate: '2024-06-09T15:16:00.000Z',
       taskProject: 'Math',
       taskPriority: 2,
       taskTags: []
@@ -26,8 +26,8 @@ const taskListStore = (set) => ({
     {
       id: 3,
       taskTitle: 'Take Foxy for a walk',
-      isCompleted: true,
-      taskDate: 'Today',
+      isCompleted: false,
+      taskDate: '2024-06-11T10:00:00.000Z',
       taskProject: 'Daily',
       taskPriority: 1,
       taskTags: ['dog']
@@ -36,16 +36,16 @@ const taskListStore = (set) => ({
       id: 4,
       taskTitle: 'Prepare for exams',
       isCompleted: false,
-      taskDate: 'Tomorrow',
-      taskProject: 'Daily',
+      taskDate: '2024-06-12T12:00:00.000Z',
+      taskProject: 'Math',
       taskPriority: 3,
       taskTags: []
     },
     {
       id: 5,
       taskTitle: 'Exercise 14.A',
-      isCompleted: false,
-      taskDate: 'Saturday',
+      isCompleted: true,
+      taskDate: '2024-06-08T15:16:00.000Z',
       taskProject: 'Physics',
       taskPriority: 2,
       taskTags: ['homework', 'studies']
@@ -54,7 +54,7 @@ const taskListStore = (set) => ({
       id: 6,
       taskTitle: 'Exercise 24.C',
       isCompleted: false,
-      taskDate: 'Saturday',
+      taskDate: '2024-06-08T15:16:00.000Z',
       taskProject: 'Math',
       taskPriority: 2,
       taskTags: ['homework', 'studies']
@@ -63,7 +63,7 @@ const taskListStore = (set) => ({
       id: 7,
       taskTitle: 'Exercise 15.A and 15.B',
       isCompleted: false,
-      taskDate: 'Saturday',
+      taskDate: '2024-06-11T11:16:00.000Z',
       taskProject: 'Physics',
       taskPriority: 2,
       taskTags: ['homework', 'studies']
@@ -71,8 +71,8 @@ const taskListStore = (set) => ({
     {
       id: 8,
       taskTitle: 'Test',
-      isCompleted: false,
-      taskDate: 'Monday',
+      isCompleted: true,
+      taskDate: '2024-06-12T13:16:00.000Z',
       taskProject: 'Math',
       taskPriority: 3,
       taskTags: ['studies']
@@ -81,7 +81,7 @@ const taskListStore = (set) => ({
       id: 9,
       taskTitle: 'Fix the project',
       isCompleted: false,
-      taskDate: 'Today',
+      taskDate: '2024-06-11T20:46:00.000Z',
       taskProject: 'Physics',
       taskPriority: 3,
       taskTags: ['studies']
@@ -90,10 +90,37 @@ const taskListStore = (set) => ({
       id: 10,
       taskTitle: 'Morning exercises',
       isCompleted: true,
-      taskDate: 'Today',
+      taskDate: '2024-06-11T08:16:00.000Z',
       taskProject: 'Daily',
       taskPriority: 0,
       taskTags: ['']
+    },
+    {
+      id: 11,
+      taskTitle: 'Exercise 20.C',
+      isCompleted: false,
+      taskDate: '2024-06-08T15:16:00.000Z',
+      taskProject: 'Math',
+      taskPriority: 2,
+      taskTags: ['homework', 'studies']
+    },
+    {
+      id: 12,
+      taskTitle: 'Exercises 22.A and 25.A',
+      isCompleted: true,
+      taskDate: '2024-06-07T15:16:00.000Z',
+      taskProject: 'Physics',
+      taskPriority: 2,
+      taskTags: ['homework', 'studies']
+    },
+    {
+      id: 13,
+      taskTitle: 'Exercise 18.B',
+      isCompleted: true,
+      taskDate: '2024-06-09T15:16:00.000Z',
+      taskProject: 'Physics',
+      taskPriority: 2,
+      taskTags: ['homework', 'studies']
     },
   ],
   addTask: (taskTitle, taskDate, taskProject, taskPriority, taskTags) =>
