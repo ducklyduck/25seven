@@ -1,7 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import moment from 'moment';
 import {VictoryBar, VictoryPie} from 'victory-native';
+// Task store
+import { useTaskListStore } from '../utils/store';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,20 +24,42 @@ const styles = StyleSheet.create({
 const Statistics = ({navigation}) => {
   // const dailyData = useTaskListStore(state => state.dailyData);
   // const projectData = useTaskListStore(state => state.projectData);
+  const list = useTaskListStore(state => state.taskList);
+
+  const today = moment();
+  const lastWeek = moment().subtract(7, 'days');
+  const tasksByDayOfWeek = {
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+    Saturday: 0,
+    Sunday: 0,
+  };
+  const tasksByProject = {};
+  list.filter(task => task.isCompleted === true).forEach(task => {
+    if (moment(task.taskDate).isBetween(lastWeek, today, 'days', '[]')) {
+      const dayOfWeek = moment(task.taskDate).format('dddd');
+      tasksByProject[task.taskProject] === undefined ? tasksByProject[task.taskProject] = 1 : tasksByProject[task.taskProject]++;
+      tasksByDayOfWeek[dayOfWeek]++;
+    }
+  });
+  console.log(tasksByProject)
   const dailyData = [
-    {x: 1, y: 1, label: 'Monday', opacity: 0.5, fill: 'grey'},
-    {x: 2, y: 3, label: 'Tuesday', opacity: 0.5, fill: 'grey'},
-    {x: 3, y: 2, label: 'Wednesday', opacity: 0.5, fill: 'grey'},
-    {x: 4, y: 5, label: 'Thursday', opacity: 1, fill: 'blue'},
-    {x: 5, y: 4, label: 'Friday', opacity: 0.5, fill: 'grey'},
-    {x: 6, y: 2, label: 'Saturday', opacity: 0.5, fill: 'grey'},
-    {x: 7, y: 2, label: 'Sunday', opacity: 0.5, fill: 'grey'},
+    {x: 1, y: tasksByDayOfWeek['Monday'], label: 'Mon', opacity: 0.5, fill: 'grey'},
+    {x: 2, y: tasksByDayOfWeek['Tuesday'], label: 'Tue', opacity: 0.5, fill: 'grey'},
+    {x: 3, y: tasksByDayOfWeek['Wednesday'], label: 'Wed', opacity: 0.5, fill: 'grey'},
+    {x: 4, y: tasksByDayOfWeek['Thursday'], label: 'Thu', opacity: 1, fill: 'blue'},
+    {x: 5, y: tasksByDayOfWeek['Friday'], label: 'Fri', opacity: 0.5, fill: 'grey'},
+    {x: 6, y: tasksByDayOfWeek['Saturday'], label: 'Sat', opacity: 0.5, fill: 'grey'},
+    {x: 7, y: tasksByDayOfWeek['Sunday'], label: 'Sun', opacity: 0.5, fill: 'grey'},
   ];
   const projectData = [
-    {x: 1, y: 5, label: 'Daily', opacity: 0.5, fill: 'coral'},
-    {x: 2, y: 4, label: 'Programming', opacity: 0.5, fill: 'blue'},
-    {x: 3, y: 2, label: 'Math', opacity: 0.5, fill: 'green'},
-    {x: 4, y: 2, label: 'Physics', opacity: 0.5, fill: 'indigo'},
+    {x: 1, y: tasksByProject['Daily'], label: 'Daily', opacity: 0.5, fill: 'coral'},
+    {x: 2, y: tasksByProject['Programming'], label: 'Progr...', opacity: 0.5, fill: 'blue'},
+    {x: 3, y: tasksByProject['Math'], label: 'Math', opacity: 0.5, fill: 'green'},
+    {x: 4, y: tasksByProject['Physics'], label: 'Physics', opacity: 0.5, fill: 'indigo'},
   ];
 
   return (
