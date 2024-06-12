@@ -46,7 +46,6 @@ const FocusTaskItem = ({
 }) => {
   const changeCompletion = useTaskListStore(state => state.changeCompletion);
   const toggleTaskStatus = () => {
-    console.log(id);
     changeCompletion(id);
   };
 

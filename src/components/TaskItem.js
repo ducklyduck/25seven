@@ -41,11 +41,12 @@ const styles = StyleSheet.create({
 const TaskItem = ({navigation, ...props}) => {
   const changeCompletion = useTaskListStore(state => state.changeCompletion);
   const removeTask = useTaskListStore(state => state.removeTask);
-  const toggleTaskStatus = () => {
-    console.log(id);
-    changeCompletion(id);
-  };
-
+  const thisDate = moment();
+  const isDateOverdue = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') < 0
+  }
   const {
     id,
     taskTitle,
@@ -54,8 +55,7 @@ const TaskItem = ({navigation, ...props}) => {
     taskProject,
     taskPriority,
     taskTags,
-    onPress,
-    isOverdue
+    onPress
   } = props;
 
   let checkboxColor = 'black';
@@ -93,7 +93,6 @@ const TaskItem = ({navigation, ...props}) => {
       containerStyle={[
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
-        // {backgroundColor: isOverdue ? 'pink' : isCompleted ? 'lightgrey' : 'white'},
       ]}
       onPress={() => onPress(id)}
       leftStyle={{marginBottom: 10}}
@@ -102,7 +101,7 @@ const TaskItem = ({navigation, ...props}) => {
           title="Notify"
           onPress={() => { reset();
             onDisplayNotification(taskCount)
-            console.log(moment(moment(taskDate).format('DDD')).diff(moment().format('DDD'), 'years'));
+            // console.log(moment(moment(taskDate).format('DDD')).diff(moment().format('DDD'), 'years'));
           }}
           icon={{name: 'info', color: 'white'}}
           buttonStyle={{minHeight: '100%'}}
@@ -123,19 +122,19 @@ const TaskItem = ({navigation, ...props}) => {
       <ListItem.Content>
         <View style={[styles.taskRow, styles.taskTopRow]}>
           <Text style={{color: projectTextColor}}>{taskProject} </Text>
-          <Text style={{color: isOverdue? 'red' : 'coral'}}>{String(moment(taskDate).calendar())}</Text>
+          <Text style={{color: isDateOverdue(taskDate)? 'red' : 'coral'}}>{String(moment(taskDate).calendar())}</Text>
         </View>
         <View style={[styles.taskRow, styles.taskMiddleRow]}>
           <Icon name={ isCompleted ? 'check-circle-outline' : 'checkbox-blank-circle-outline' }
             type="material-community"
             style={styles.statusIcon}
             size={30}
-            onPress={toggleTaskStatus}
+            onPress={() => changeCompletion(id)}
             borderRadius={0}
             color={checkboxColor}
           />
           <Text
-            style={[ styles.taskTitle, {textDecorationLine: isCompleted ? 'line-through' : 'none'}, {color: isOverdue ? 'red' : 'black'}]}>
+            style={[ styles.taskTitle, {textDecorationLine: isCompleted ? 'line-through' : 'none'}, {color: isDateOverdue(taskDate) ? 'red' : 'black'}]}>
             {taskTitle}
           </Text>
         </View>

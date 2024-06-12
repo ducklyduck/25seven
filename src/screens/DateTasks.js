@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import moment from 'moment';
@@ -48,13 +47,11 @@ const DateTasks = ({navigation}) => {
       lastWeek: '[Last] dddd',
       sameElse: 'DD/MM/YYYY'
     })
-
   const isDateOverdue = (date) => {
     date = moment(date).format('DDD')
     const thisDateFormatted = moment(thisDate).format('DDD');
     return moment(date).diff(thisDateFormatted, 'years') < 0
   }
-
   const isDateFilter = (date) => {
     date = moment(date).format('DDD')
     const thisDateFormatted = moment(thisDate).format('DDD');
@@ -79,7 +76,6 @@ const DateTasks = ({navigation}) => {
                 taskProject={task.taskProject}
                 taskPriority={task.taskPriority}
                 taskTags={task.taskTags}
-                isOverdue={true}
                 onPress={(id) => navigation.navigate('ChangeTaskScreen', id)}
               />
             ))}
@@ -105,23 +101,13 @@ const DateTasks = ({navigation}) => {
       <FAB
         placement={'right'}
         color="tomato"
-        icon={{
-          name: 'plus',
-          type: 'material-community',
-          size: 24,
-          color: 'white',
-        }}
+        icon={{ name: 'plus', type: 'material-community', color: 'white' }}
         onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})}
       />
       <FAB
         placement={'left'}
         color="tomato"
-        icon={{
-          name: 'lightbulb-outline',
-          type: 'material-community',
-          size: 24,
-          color: 'white',
-        }}
+        icon={{ name: 'lightbulb-outline', type: 'material-community', color: 'white' }}
         onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})}
       />
     </SafeAreaView>

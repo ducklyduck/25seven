@@ -45,7 +45,6 @@ const Statistics = ({navigation}) => {
       tasksByDayOfWeek[dayOfWeek]++;
     }
   });
-  console.log(tasksByProject)
   const dailyData = [
     {x: 1, y: tasksByDayOfWeek['Monday'], label: 'Mon', opacity: 0.5, fill: 'grey'},
     {x: 2, y: tasksByDayOfWeek['Tuesday'], label: 'Tue', opacity: 0.5, fill: 'grey'},

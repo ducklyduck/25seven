@@ -4,9 +4,9 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FAB} from '@rneui/themed';
 // Task store
@@ -34,25 +34,37 @@ const styles = StyleSheet.create({
 
 const ProjectTasks = ({navigation}) => {
   const project = 'Math';
+  const thisDate = moment();
+  const isDateOverdue = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') < 0
+  }
+  const isDateFilter = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') == 0
+  }
+
   const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <Text style={styles.screenTitle}>{project}</Text>
-      </TouchableOpacity>
+      <Text style={styles.screenTitle} onPress={() => navigation.openDrawer()}>{project}</Text>
       <ScrollView>
         <View style={styles.taskList}>
           {list
-            .filter(task => task.taskProject === project)
+            .filter(task => task.taskProject === project && (isDateFilter(task.taskDate) | (isDateOverdue(task.taskDate) && task.isCompleted == false)))
             .map((task, taskI) => (
               <TaskItem
                 key={taskI}
+                id={task.id}
                 taskTitle={task.taskTitle}
                 isCompleted={task.isCompleted}
                 taskDate={task.taskDate}
                 taskProject={task.taskProject}
                 taskPriority={task.taskPriority}
                 taskTags={task.taskTags}
+                onPress={(id) => navigation.navigate('ChangeTaskScreen', id)}
               />
             ))}
         </View>
@@ -60,23 +72,13 @@ const ProjectTasks = ({navigation}) => {
       <FAB
         placement={'right'}
         color="tomato"
-        icon={{
-          name: 'plus',
-          type: 'material-community',
-          size: 24,
-          color: 'white',
-        }}
+        icon={{ name: 'plus', type: 'material-community', color: 'white' }}
         onPress={() => navigation.navigate('FabScreens', {screen: 'Task'})}
       />
       <FAB
         placement={'left'}
         color="tomato"
-        icon={{
-          name: 'lightbulb-outline',
-          type: 'material-community',
-          size: 24,
-          color: 'white',
-        }}
+        icon={{ name: 'lightbulb-outline', type: 'material-community', color: 'white' }}
         onPress={() => navigation.navigate('FabScreens', {screen: 'Focus'})}
       />
     </SafeAreaView>
