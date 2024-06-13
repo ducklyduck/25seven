@@ -2,9 +2,11 @@ import React from 'react';
 // Import from component libraries
 import {View, Text, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useTaskListStore} from '../utils/store';
 import {Button, Icon} from '@rneui/themed';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import moment from 'moment';
+// Task store
+import {useTaskListStore} from '../utils/store';
 // Task component
 import FocusTaskItem from '../components/FocusTaskItem';
 
@@ -30,13 +32,19 @@ const styles = StyleSheet.create({
 });
 
 const FocusMode = ({navigation}) => {
+  const thisDate = moment();
+  const isDateFilter = (date) => {
+    date = moment(date).format('DDD')
+    const thisDateFormatted = moment(thisDate).format('DDD');
+    return moment(date).diff(thisDateFormatted, 'years') == 0
+  }
   const durationTime = 1600;
   let workTime = 0;
   const list = useTaskListStore(state => state.taskList);
 
   const children = ( remainingTime ) => {
-    const minutes = Math.floor(remainingTime / 60) ? Math.floor(remainingTime / 60) : '00';
-    const seconds = remainingTime % 60 ? remainingTime % 60 : '00';
+    const minutes = moment(Math.floor(remainingTime / 60)).format('mm').toString();
+    const seconds = moment(remainingTime % 60).format('ss').toString();
 
     return `${minutes}:${seconds}`
   }
@@ -48,19 +56,22 @@ const FocusMode = ({navigation}) => {
           isPlaying
           size={220}
           duration={durationTime}
-          colors={['tomato']}>
+          colors={['tomato']}
+          onComplete={({remainingTime}) => {
+            console.log(remainingTime)
+            workTime = durationTime - remainingTime
+          }}>
           {({remainingTime}) => (
+            // <Text style={styles.timer}>{remainingTime}</Text>
+            // <Text style={styles.timer}>{children(remainingTime)}</Text>
             <Text style={styles.timer}>{children(remainingTime)}</Text>
           )}
-          onComplete={({remainingTime}) => {
-            workTime = durationTime - remainingTime
-          }}
         </CountdownCircleTimer>
       </View>
       <View style={styles.tasksWrapper}>
         {list
           .filter(
-            task => task.taskDate === 'Today' && task.isCompleted === false,
+            task => isDateFilter(task.taskDate) && task.isCompleted === false,
           )
           .map(task => (
             <FocusTaskItem
@@ -79,7 +90,7 @@ const FocusMode = ({navigation}) => {
         <Button
           color="tomato" size="lg" radius={45}
           onPress={() => {
-            onConcentrationStop(workTime);
+            // onConcentrationStop(workTime);
             navigation.goBack();
           }}>
           <Icon name={'pause'} type="material-community" size={48} color={'white'} />
