@@ -52,7 +52,8 @@ const ProjectTasks = ({navigation}) => {
       <ScrollView>
         <View style={styles.taskList}>
           {list
-            .filter(task => task.taskProject === project && (isDateFilter(task.taskDate) | (isDateOverdue(task.taskDate) && task.isCompleted == false)))
+            .filter(task => task.taskProject === project &&
+              (isDateFilter(task.taskDate) | (isDateOverdue(task.taskDate) && task.isCompleted == false)))
             .map((task, taskI) => (
               <TaskItem
                 key={taskI}
