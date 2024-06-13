@@ -94,7 +94,7 @@ const TaskItem = ({navigation, ...props}) => {
         styles.taskItem,
         {backgroundColor: isCompleted ? 'lightgrey' : 'white'},
       ]}
-      onPress={() => onPress(id)}
+      // onPress={() => onPress(id)}
       leftStyle={{marginBottom: 10}}
       leftContent={reset => (
         <Button
