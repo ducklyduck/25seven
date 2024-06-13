@@ -40,15 +40,19 @@ const FocusMode = ({navigation}) => {
   }
   const durationTime = 1600;
   let workTime = 0;
-  const list = useTaskListStore(state => state.taskList);
-
+  const saveWorktime = useTaskListStore(state => state.saveWorktime)
+  onConcentrationStop = (time) => {
+    saveWorktime(time);
+    navigation.goBack()
+  }
   const children = ( remainingTime ) => {
-    const minutes = moment(Math.floor(remainingTime / 60)).format('mm').toString();
-    const seconds = moment(remainingTime % 60).format('ss').toString();
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
 
     return `${minutes}:${seconds}`
   }
 
+  const list = useTaskListStore(state => state.taskList);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
@@ -62,8 +66,6 @@ const FocusMode = ({navigation}) => {
             workTime = durationTime - remainingTime
           }}>
           {({remainingTime}) => (
-            // <Text style={styles.timer}>{remainingTime}</Text>
-            // <Text style={styles.timer}>{children(remainingTime)}</Text>
             <Text style={styles.timer}>{children(remainingTime)}</Text>
           )}
         </CountdownCircleTimer>
@@ -89,10 +91,7 @@ const FocusMode = ({navigation}) => {
       <View style={styles.textContainer}>
         <Button
           color="tomato" size="lg" radius={45}
-          onPress={() => {
-            // onConcentrationStop(workTime);
-            navigation.goBack();
-          }}>
+          onPress={() => onConcentrationStop(workTime)}>
           <Icon name={'pause'} type="material-community" size={48} color={'white'} />
         </Button>
       </View>

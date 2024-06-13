@@ -165,6 +165,12 @@ const taskListStore = (set) => ({
     })),
   projectList: ['Daily', 'Math', 'Physics', 'Programming'],
   tagsList: ['homework', 'studies', 'dog'],
+  saveWorktime: (time) =>
+    set ((state) => ({
+      worktime: [...state.worktime, time]
+    })),
+  worktime: [1546, 1200, 1600],
+
 })
 
 export const useTaskListStore = create(
