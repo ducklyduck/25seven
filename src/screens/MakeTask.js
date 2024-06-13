@@ -5,8 +5,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import {Icon, Button} from '@rneui/themed';
-import {useTaskListStore} from '../utils/store';
 import SelectDropdown from 'react-native-select-dropdown';
+// Task store
+import {useTaskListStore} from '../utils/store';
 
 const styles = StyleSheet.create({
   container: {
@@ -92,39 +93,24 @@ const MakeTask = ({navigation}) => {
   const [taskProject, setTaskProject] = React.useState('');
   const [taskPriority, setTaskPriority] = React.useState(0);
   const [taskTags, setTaskTags] = React.useState([]);
-
   const [open, setOpen] = React.useState(false);
 
   const projectList = useTaskListStore(state => state.projectList);
   const tagsList = useTaskListStore(state => state.tagsList);
-
   const projects = ['', ...projectList];
   const tags = ['', ...tagsList];
   const priorities = [
-    {
-      key: 0, color: '#6F6F6F',
-    },
-    {
-      key: 1, color: 'blue',
-    },
-    {
-      key: 2, color: 'orange',
-    },
-    {
-      key: 3, color: 'red',
-    },
+    { key: 0, color: '#6F6F6F', },
+    { key: 1, color: 'blue', },
+    { key: 2, color: 'orange', },
+    { key: 3, color: 'red', },
   ]
 
   const addTask = useTaskListStore(state => state.addTask);
-
   const onAddTaskClick = () => {
     addTask(taskTitle, moment(taskDate).format(), taskProject, taskPriority, taskTags);
     navigation.goBack();
   };
-
-  //TODO: change screen to overlay or modal
-  //TODO: make a toast for a task creation cancellation
-  //TODO: make a toast warning when trying to add a task without title
 
   return (
     <SafeAreaView style={styles.container}>
@@ -141,7 +127,6 @@ const MakeTask = ({navigation}) => {
           Date
         </Button>
         <DatePicker modal open={open} date={taskDate}
-          //  dividerColor='coral' buttonColor='tomato'
           onConfirm={taskDate => { setOpen(false); setTaskDate(taskDate); }}
           onCancel={() => {
             setOpen(false);

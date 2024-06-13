@@ -14,7 +14,6 @@ import {useTaskListStore} from '../utils/store';
 // Task component
 import TaskItem from '../components/TaskItem';
 
-// TODO: import styles from a special style file
 const styles = StyleSheet.create({
   container: {
     flex: 1,
