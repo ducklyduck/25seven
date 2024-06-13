@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
 });
 
 const Statistics = ({navigation}) => {
-  // const dailyData = useTaskListStore(state => state.dailyData);
-  // const projectData = useTaskListStore(state => state.projectData);
   const list = useTaskListStore(state => state.taskList);
 
   const today = moment();
@@ -41,7 +39,9 @@ const Statistics = ({navigation}) => {
   list.filter(task => task.isCompleted === true).forEach(task => {
     if (moment(task.taskDate).isBetween(lastWeek, today, 'days', '[]')) {
       const dayOfWeek = moment(task.taskDate).format('dddd');
-      tasksByProject[task.taskProject] === undefined ? tasksByProject[task.taskProject] = 1 : tasksByProject[task.taskProject]++;
+      tasksByProject[task.taskProject] === undefined
+        ? tasksByProject[task.taskProject] = 1
+        : tasksByProject[task.taskProject]++;
       tasksByDayOfWeek[dayOfWeek]++;
     }
   });
@@ -63,9 +63,7 @@ const Statistics = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <Text style={styles.screenTitle}>Statistics</Text>
-      </TouchableOpacity>
+      <Text style={styles.screenTitle} onPress={() => navigation.openDrawer()}>Statistics</Text>
       <View style={styles.dailyStats}>
         {/* BarChart of tasks sorted by day completed on a weeek */}
         <VictoryBar style={{data: {fill: 'coral'}}} data={dailyData} />
