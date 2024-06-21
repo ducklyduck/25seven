@@ -3,7 +3,7 @@ import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 import { StateStorage } from 'zustand/middleware'
 import { AsyncStorage } from 'react-native'
 
-const taskListStore = (set) => ({
+export const useTaskListStore = create((set) => ({
   taskList: [
     {
       id: 1,
@@ -27,7 +27,7 @@ const taskListStore = (set) => ({
       id: 3,
       taskTitle: 'Take Foxy for a walk',
       isCompleted: false,
-      taskDate: '2024-06-13T10:00:00.000Z',
+      taskDate: '2024-06-14T10:00:00.000Z',
       taskProject: 'Daily',
       taskPriority: 1,
       taskTags: ['dog']
@@ -36,7 +36,7 @@ const taskListStore = (set) => ({
       id: 4,
       taskTitle: 'Prepare for exams',
       isCompleted: false,
-      taskDate: '2024-06-13T12:00:00.000Z',
+      taskDate: '2024-06-14T12:00:00.000Z',
       taskProject: 'Math',
       taskPriority: 3,
       taskTags: []
@@ -45,7 +45,7 @@ const taskListStore = (set) => ({
       id: 5,
       taskTitle: 'Exercise 14.A',
       isCompleted: true,
-      taskDate: '2024-06-08T15:16:00.000Z',
+      taskDate: '2024-06-09T15:16:00.000Z',
       taskProject: 'Physics',
       taskPriority: 2,
       taskTags: ['homework', 'studies']
@@ -72,7 +72,7 @@ const taskListStore = (set) => ({
       id: 8,
       taskTitle: 'Test',
       isCompleted: true,
-      taskDate: '2024-06-12T13:16:00.000Z',
+      taskDate: '2024-06-13T13:16:00.000Z',
       taskProject: 'Math',
       taskPriority: 3,
       taskTags: ['studies']
@@ -81,7 +81,7 @@ const taskListStore = (set) => ({
       id: 9,
       taskTitle: 'Fix the project',
       isCompleted: false,
-      taskDate: '2024-06-13T20:46:00.000Z',
+      taskDate: '2024-06-14T20:46:00.000Z',
       taskProject: 'Physics',
       taskPriority: 3,
       taskTags: ['studies']
@@ -171,13 +171,14 @@ const taskListStore = (set) => ({
     })),
   worktime: [1546, 1200, 1600],
 
-})
+}))
 
-export const useTaskListStore = create(
-  devtools(
-    persist(taskListStore, {
-      name: 'task-list',
-      storage: createJSONStorage(() => AsyncStorage),
-    })
-  )
-)
+// export default useTaskListStore
+// = create(
+//   devtools(
+//     persist(taskListStore, {
+//       name: 'task-list',
+//       storage: createJSONStorage(() => AsyncStorage),
+//     })
+//   )
+// )
